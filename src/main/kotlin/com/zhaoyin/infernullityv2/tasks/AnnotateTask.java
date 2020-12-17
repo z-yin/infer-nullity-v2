@@ -1,0 +1,44 @@
+// Copyright 2000-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+package com.zhaoyin.infernullityv2.tasks;
+
+import com.intellij.codeInsight.NullableNotNullManager;
+import com.intellij.codeInspection.inferNullity.NullityInferrer;
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.project.Project;
+import com.intellij.usageView.UsageInfo;
+import com.intellij.util.SequentialModalProgressTask;
+import com.intellij.util.SequentialTask;
+
+public class AnnotateTask implements SequentialTask {
+  private final Project myProject;
+  private final UsageInfo[] myInfos;
+  private final SequentialModalProgressTask myTask;
+  private int myCount;
+  private final int myTotal;
+  private final NullableNotNullManager myNotNullManager;
+
+  public AnnotateTask(Project project, SequentialModalProgressTask progressTask, UsageInfo[] infos) {
+    myProject = project;
+    myInfos = infos;
+    myNotNullManager = NullableNotNullManager.getInstance(myProject);
+    myTask = progressTask;
+    myTotal = infos.length;
+  }
+
+  @Override
+  public boolean isDone() {
+    return myCount > myTotal - 1;
+  }
+
+  @Override
+  public boolean iteration() {
+    final ProgressIndicator indicator = myTask.getIndicator();
+    if (indicator != null) {
+      indicator.setFraction(((double)myCount) / myTotal);
+    }
+
+    NullityInferrer.apply(myProject, myNotNullManager, myInfos[myCount++]);
+
+    return isDone();
+  }
+}

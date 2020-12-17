@@ -1,19 +1,27 @@
 <idea-plugin>
-    <id>com.github.z-yin.infernullityv2</id>
-    <name>infer-nullity-v2</name>
-    <vendor>z-yin</vendor>
+    <id>com.zhaoyin.infernullityv2</id>
+    <name>Infer Nullity V2</name>
+    <vendor email="joy_yin@outlook.com">zhaoyin</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+    
+    <actions>
+        <action id="InferNullityV2" class="com.zhaoyin.infernullityv2.actions.InferNullityAnnotationsActionV2" text="Infer Nullity V2"
+                description="Infer nullity without touching the code">
+            <add-to-group group-id="InspectCodeGroup" anchor="after" relative-to-action="InferNullity"/>
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.z-yin.infernullityv2.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.z-yin.infernullityv2.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.zhaoyin.infernullityv2.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.zhaoyin.infernullityv2.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.z-yin.infernullityv2.listeners.MyProjectManagerListener"
+        <listener class="com.zhaoyin.infernullityv2.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

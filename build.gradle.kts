@@ -18,6 +18,12 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
 }
 
+configure<SourceSetContainer> {
+    named("main") {
+        java.srcDir("src/main/kotlin")
+    }
+}
+
 // Import variables from gradle.properties file
 val pluginGroup: String by project
 // `pluginName_` variable ends with `_` because of the collision with Kotlin magic getter in the `intellij` closure.
