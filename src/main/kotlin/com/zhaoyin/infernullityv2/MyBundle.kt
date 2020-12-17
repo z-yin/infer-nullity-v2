@@ -1,4 +1,4 @@
-package com.github.z-yin.infernullityv2
+package com.zhaoyin.infernullityv2
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls

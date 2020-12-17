@@ -1,9 +1,9 @@
-package com.github.z-yin.infernullityv2.listeners
+package com.zhaoyin.infernullityv2.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
-import com.github.z-yin.infernullityv2.services.MyProjectService
+import com.zhaoyin.infernullityv2.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 
